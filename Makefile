@@ -1,30 +1,43 @@
+NAME := myshell
 
-NAME = myshell
+CC := gcc
+CFLAGS := -Wall -Wextra -Werror -g
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+SRC_DIR := .
+BUILTINS_DIR := builtins
+LIBFT_DIR := libft
 
-SRCS = main.c \
-       gnl/get_next_line.c \
-       gnl/get_next_line_utils.c
+LIBFT := $(LIBFT_DIR)/libft.a
 
-OBJS = $(SRCS:.c=.o)
+SRCS := \
+	$(SRC_DIR)/minishell.c \
+	$(BUILTINS_DIR)/builtins.c \
+	$(BUILTINS_DIR)/cd.c \
+	$(BUILTINS_DIR)/echo.c \
+	$(BUILTINS_DIR)/pwd.c \
+	$(BUILTINS_DIR)/env.c \
+	$(BUILTINS_DIR)/unset.c \
+	$(BUILTINS_DIR)/export.c
 
-HEADERS = shell.h gnl/get_next_line.h
+OBJS := $(SRCS:.c=.o)
+
+INCLUDES := -I$(SRC_DIR) -I$(BUILTINS_DIR) -I$(LIBFT_DIR)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+$(NAME): $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
-%.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
 	rm -f $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
