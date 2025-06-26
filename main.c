@@ -2,6 +2,10 @@
 
 int main(int argc, char *argv[]){
     (void)argc,(void)argv;
-    printf("test\n");
+     printf("testing the shell\n");
+     while (1){
+        
+     }
     return 0;
 }
+

@@ -1,0 +1,10 @@
+builtin
+{
+    cd
+    echo -n
+    env
+    exit
+    export
+    pwd
+    unset
+}
