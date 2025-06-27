@@ -27,6 +27,14 @@ typedef struct s_token
     struct s_token        *next;
 }       
 
+typedef struct s_cmd
+{
+    char    **argv;        
+    char    *infile;       
+    char    *outfile;      
+    int     append;        
+    struct s_cmd *next;    
+} t_cmd;
 
 
 int main(int argc, char *argv[]);

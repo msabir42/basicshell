@@ -2,14 +2,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-typedef struct s_cmd
-{
-    char    **argv;        
-    char    *infile;       
-    char    *outfile;      
-    int     append;        
-    struct s_cmd *next;    
-} t_cmd;
 
 int ft_strcmp(char *s1, char *s2);
 int isbuiltin(char* cmd);
