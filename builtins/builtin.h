@@ -1,18 +1,19 @@
-#ifndef BUILTIN_H   
+#ifndef BUILTIN_H
+#define BUILTIN_H  
+
 #include <unistd.h>
 #include <stdlib.h>
+#include "../shell.h"
 
 
-int ft_strcmp(char *s1, char *s2);
-int isbuiltin(char* cmd);
-void exec_cd();
-void exec_echo();
-void exec_exit();
-void exec_unset();
-void exec_pwd();
-void exec_export();
-void exec_env();
-void exec_builtin(t_cmd* cmd);
+int     isbuiltin(char *cmd);
 
-
+int     exec_cd(t_cmd *cmd);
+int     exec_echo(t_cmd *cmd);
+int     exec_exit(t_cmd *cmd);
+int     exec_unset(t_cmd *cmd);
+int     exec_pwd(t_cmd *cmd);
+int     exec_export(t_cmd *cmd);
+int     exec_env(t_cmd *cmd);
+int     exec_builtin(t_cmd *cmd);  
 #endif
