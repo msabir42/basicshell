@@ -85,3 +85,11 @@ char *get_env_value(t_env *env, const char *key)
     }
     return NULL;
 }
+
+void set_env_value(t_env **env, const char *key, const char *value) 
+{
+    if (env)
+    {
+        
+    }
+}
