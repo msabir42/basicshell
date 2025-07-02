@@ -41,6 +41,7 @@ typedef struct s_cmd
     char        *infile;
     char        *outfile;
     int         append;
+    t_shell     *shell;
     struct s_cmd *next;
 } t_cmd;
 
@@ -53,4 +54,15 @@ typedef struct s_shell
 
 int     ft_strcmp(char *s1, char *s2);
 
+
+int     isbuiltin(char *cmd);
+t_env *new_env(char* key, char* value);
+int     exec_cd(t_cmd *cmd);
+int     exec_echo(t_cmd *cmd);
+int     exec_exit(t_cmd *cmd);
+int     exec_unset(t_cmd *cmd);
+int     exec_pwd(t_cmd *cmd);
+int     exec_export(t_cmd *cmd);
+int     exec_env(t_cmd *cmd);
+int     exec_builtin(t_cmd *cmd);  
 #endif
