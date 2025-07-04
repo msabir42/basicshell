@@ -1,1 +1,1 @@
-minishel f 5yam hh
+minishell f 5yam hh
