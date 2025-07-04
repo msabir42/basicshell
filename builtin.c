@@ -13,8 +13,8 @@ int isbuiltin(char* cmd)
         !ft_strcmp(cmd,"exit") ||
         !ft_strcmp(cmd,"pwd") ||
         !ft_strcmp(cmd,"unset") ||
-        !ft_strcmp(cmd,"env");
-    )
+        !ft_strcmp(cmd,"env")
+    );
 }
 
 void exec_builtin(t_cmd* cmd)
