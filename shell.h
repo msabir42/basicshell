@@ -67,6 +67,11 @@ t_env *new_env(char* key, char* value);
 char *get_env_value(t_env *env, const char *key);
 char **env_to_array(t_env *env);
 static int env_len(t_env *env);
+
+// exec
+char* get_path(char* command, t_env *env);
+void exec_command(t_cmd* cmd);
+void exec_native(t_cmd *cmd);
 // exec builtin
 int     isbuiltin(char *cmd);
 int     exec_cd(t_cmd *cmd);
