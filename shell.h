@@ -39,13 +39,19 @@ typedef struct s_token
     struct s_token  *next;
 } t_token;
 
+typedef struct  s_redirections
+{
+    char        *infile;
+    char        *outfile;
+    int         append;   
+} t_redirections;
+
 typedef struct s_cmd
 {
     char        **argv;
-    char        *infile;
-    char        *outfile;
-    int         append;
+    
     t_shell     *shell;
+    t_redirections *redir;
     struct s_cmd *next;
 } t_cmd;
 

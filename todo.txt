@@ -1,5 +1,4 @@
 {
-    pipes
     redirections
     heredoc
 }
