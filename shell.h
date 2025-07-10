@@ -8,6 +8,7 @@
 #include <readline/readline.h>
 #include <sys/types.h> 
 #include <sys/wait.h>    
+#include <fcntl.h>
 #include "libft/libft.h" 
 
 typedef struct s_env
@@ -49,7 +50,6 @@ typedef struct  s_redirections
 typedef struct s_cmd
 {
     char        **argv;
-    
     t_shell     *shell;
     t_redirections *redir;
     struct s_cmd *next;
