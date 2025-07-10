@@ -1,47 +1,60 @@
 #include "shell.h"
 
 
-
-void exec_pipes(t_cmd *cmd)
+void exec_all_pipes(t_cmd *cmd)
 {
     int fd[2];
-    pid_t first, second;
+    int prev_pipe = -1; 
+    pid_t pid;
 
-    if (!cmd || !cmd->next)
-        return;
-
-    if (pipe(fd) == -1)
+    while (cmd)
     {
-        perror("pipe failed");
-        return;
-    }
+        if (cmd->next && pipe(fd) == -1)
+        {
+            perror("pipe failed");
+            exit(1);
+        }
 
-    first = fork();
-    if (first == 0)
-    {
-        dup2(fd[1], STDOUT_FILENO); 
-        close(fd[0]);               
-        close(fd[1]);
+        pid = fork();
+        if (pid == -1)
+        {
+            perror("fork failed");
+            exit(1);
+        }
 
-        exec_command(cmd);
-        exit(1);
-    }
-
+        if (pid == 0)
+        {
     
-    second = fork();
-    if (second == 0)
-    {
-        dup2(fd[0], STDIN_FILENO);  
-        close(fd[1]);               
-        close(fd[0]);
+            if (prev_pipe != -1)
+            {
+                dup2(prev_pipe, STDIN_FILENO);
+                close(prev_pipe);
+            }
 
-        exec_command(cmd->next);
-        exit(1);
+            // 🔹 
+            if (cmd->next)
+            {
+                close(fd[0]); 
+                dup2(fd[1], STDOUT_FILENO);
+                close(fd[1]);
+            }
+
+            exec_command(cmd); 
+            exit(1); 
+        }
+
+  
+        if (prev_pipe != -1)
+            close(prev_pipe);
+        if (cmd->next)
+        {
+            close(fd[1]);      
+            prev_pipe = fd[0]; 
+        }
+
+        cmd = cmd->next;
     }
 
 
-    close(fd[0]);
-    close(fd[1]);
-    waitpid(first, NULL, 0);
-    waitpid(second, NULL, 0);
+    while (wait(NULL) > 0);
 }
